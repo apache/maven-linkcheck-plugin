@@ -76,12 +76,11 @@ public class SiteInvoker
 
     /**
      * Invoke Maven for the <code>site</code> phase for a temporary Maven project using
-     * <code>tmpReportingOutputDirectory</code> as <code>${project.reporting.outputDirectory}</code>.
-     * This is a workaround to be sure that all site files have been correctly generated. <br/>
-     * <b>Note 1</b>: the Maven Home should be defined in the <code>maven.home</code> Java system property
-     * or defined in <code>M2_HOME</code> system env variables.
-     * <b>Note 2</be>: we can't use <code>siteOutputDirectory</code> param from site plugin because some plugins
-     * <code>${project.reporting.outputDirectory}</code> in their conf.
+     * <code>tmpReportingOutputDirectory</code> as <code>${project.reporting.outputDirectory}</code>. This is a
+     * workaround to be sure that all site files have been correctly generated. <br/>
+     * <b>Note 1</b>: the Maven Home should be defined in the <code>maven.home</code> Java system property or defined in
+     * <code>M2_HOME</code> system env variables. <b>Note 2</be>: we can't use <code>siteOutputDirectory</code> param
+     * from site plugin because some plugins <code>${project.reporting.outputDirectory}</code> in their conf.
      *
      * @param project the MavenProject to invoke the site on. Not null.
      * @param tmpReportingOutputDirectory not null
@@ -95,7 +94,7 @@ public class SiteInvoker
         {
             // CHECKSTYLE_OFF: LineLength
             getLog().error( "Could NOT invoke Maven because no Maven Home is defined. "
-                                + "You need to set the M2_HOME system env variable or a 'maven.home' Java system property." );
+                + "You need to set the M2_HOME system env variable or a 'maven.home' Java system property." );
             // CHECKSTYLE_ON: LineLength
             return;
         }
@@ -266,7 +265,7 @@ public class SiteInvoker
             if ( getLog().isErrorEnabled() )
             {
                 getLog().error( "Error when invoking Maven, consult the invoker log file: "
-                                    + invokerLog.getAbsolutePath() );
+                    + invokerLog.getAbsolutePath() );
             }
         }
     }
@@ -308,7 +307,7 @@ public class SiteInvoker
                 if ( getLog().isErrorEnabled() )
                 {
                     getLog().error( "FileNotFoundException: " + e.getMessage()
-                                        + ". Using System.out to log the invoker." );
+                        + ". Using System.out to log the invoker." );
                 }
                 ps = System.out;
             }
@@ -317,7 +316,7 @@ public class SiteInvoker
                 if ( getLog().isErrorEnabled() )
                 {
                     getLog().error( "UnsupportedEncodingException: " + e.getMessage()
-                                        + ". Using System.out to log the invoker." );
+                        + ". Using System.out to log the invoker." );
                 }
                 ps = System.out;
             }
@@ -338,13 +337,20 @@ public class SiteInvoker
         request.setOutputHandler( outputHandler );
         request.setErrorHandler( outputHandler );
 
-        outputHandler.consumeLine( "Invoking Maven for the goals: " + goals + " with properties=" + properties );
-        outputHandler.consumeLine( "" );
-        outputHandler.consumeLine( "M2_HOME=" + getMavenHome() );
-        outputHandler.consumeLine( "MAVEN_OPTS=" + getMavenOpts() );
-        outputHandler.consumeLine( "JAVA_HOME=" + getJavaHome() );
-        outputHandler.consumeLine( "JAVA_OPTS=" + getJavaOpts() );
-        outputHandler.consumeLine( "" );
+        try
+        {
+            outputHandler.consumeLine( "Invoking Maven for the goals: " + goals + " with properties=" + properties );
+            outputHandler.consumeLine( "" );
+            outputHandler.consumeLine( "M2_HOME=" + getMavenHome() );
+            outputHandler.consumeLine( "MAVEN_OPTS=" + getMavenOpts() );
+            outputHandler.consumeLine( "JAVA_HOME=" + getJavaHome() );
+            outputHandler.consumeLine( "JAVA_OPTS=" + getJavaOpts() );
+            outputHandler.consumeLine( "" );
+        }
+        catch ( IOException e )
+        {
+            throw new MavenInvocationException( e.getMessage(), e.getCause() );
+        }
 
         try
         {
@@ -358,8 +364,8 @@ public class SiteInvoker
     }
 
     /**
-     * @return the Maven home defined in the <code>maven.home</code> system property or defined
-     *         in <code>M2_HOME</code> system env variables or null if never setted.
+     * @return the Maven home defined in the <code>maven.home</code> system property or defined in <code>M2_HOME</code>
+     *         system env variables or null if never setted.
      * @see #invoke(Invoker, InvocationRequest, File, List, Properties, String)
      */
     private String getMavenHome()
@@ -382,7 +388,7 @@ public class SiteInvoker
         if ( !m2Home.exists() )
         {
             getLog().error( "Cannot find Maven application directory. Either specify \'maven.home\' "
-                                + "system property, or M2_HOME environment variable." );
+                + "system property, or M2_HOME environment variable." );
         }
 
         return mavenHome;
@@ -409,9 +415,9 @@ public class SiteInvoker
     }
 
     /**
-     * @return the <code>JAVA_HOME</code> from System.getProperty( "java.home" )
-     *         By default, <code>System.getProperty( "java.home" ) = JRE_HOME</code> and <code>JRE_HOME</code> should be
-     *         in the <code>JDK_HOME</code> or null if not setted.
+     * @return the <code>JAVA_HOME</code> from System.getProperty( "java.home" ) By default,
+     *         <code>System.getProperty( "java.home" ) = JRE_HOME</code> and <code>JRE_HOME</code> should be in the
+     *         <code>JDK_HOME</code> or null if not setted.
      * @see #invoke(Invoker, InvocationRequest, File, List, Properties, String)
      */
     private File getJavaHome()
@@ -442,7 +448,7 @@ public class SiteInvoker
         if ( javaHome == null || !javaHome.exists() )
         {
             getLog().error( "Cannot find Java application directory. Either specify \'java.home\' "
-                                + "system property, or JAVA_HOME environment variable." );
+                + "system property, or JAVA_HOME environment variable." );
         }
 
         return javaHome;
