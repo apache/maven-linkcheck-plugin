@@ -29,19 +29,16 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.SystemUtils;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.Reporting;
-import org.apache.maven.project.MavenProject;
-
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
 import org.apache.maven.shared.invoker.InvocationOutputHandler;
@@ -50,7 +47,6 @@ import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.apache.maven.shared.invoker.PrintStreamHandler;
-
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
@@ -100,7 +96,7 @@ public class SiteInvoker
         }
 
         // invoker site parameters
-        List goals = Collections.singletonList( "site" );
+        List<String> goals = Collections.singletonList( "site" );
         Properties properties = new Properties();
         properties.put( "linkcheck.skip", "true" ); // to stop recursion
 
@@ -127,21 +123,14 @@ public class SiteInvoker
         }
 
         clone.getOriginalModel().getReporting().setOutputDirectory( tmpReportingOutputDirectory.getAbsolutePath() );
-        List profileIds = getActiveProfileIds( clone );
+        List<String> profileIds = getActiveProfileIds( clone );
 
         // create the original model as tmp pom file for the invoker
         File tmpProjectFile = FileUtils.createTempFile( "pom", ".xml", project.getBasedir() );
-        Writer writer = null;
-        try
+        
+        try ( Writer writer = WriterFactory.newXmlWriter( tmpProjectFile ) )
         {
-            writer = WriterFactory.newXmlWriter( tmpProjectFile );
             clone.writeOriginalModel( writer );
-            writer.close();
-            writer = null;
-        }
-        finally
-        {
-            IOUtil.close( writer );
         }
 
         // invoke it
@@ -158,9 +147,9 @@ public class SiteInvoker
         }
     }
 
-    private static List getActiveProfileIds( MavenProject clone )
+    private static List<String> getActiveProfileIds( MavenProject clone )
     {
-        List profileIds = new ArrayList();
+        List<String> profileIds = new ArrayList<>();
 
         for ( Object o : clone.getActiveProfiles() )
         {
@@ -177,8 +166,8 @@ public class SiteInvoker
      * @param goals the list of goals
      * @param properties the properties for the invoker
      */
-    private void invoke( File projectFile, File invokerLog, String mavenHome, List goals, List activeProfiles,
-                         Properties properties )
+    private void invoke( File projectFile, File invokerLog, String mavenHome, List<String> goals,
+                         List<String> activeProfiles, Properties properties )
     {
         Invoker invoker = new DefaultInvoker();
         invoker.setMavenHome( new File( mavenHome ) );
@@ -221,22 +210,15 @@ public class SiteInvoker
         }
 
         String invokerLogContent = null;
-        Reader reader = null;
-        try
+        
+        try ( Reader reader = ReaderFactory.newReader( invokerLog, "UTF-8" ) )
         {
-            reader = ReaderFactory.newReader( invokerLog, "UTF-8" );
             invokerLogContent = IOUtil.toString( reader );
-            reader.close();
-            reader = null;
         }
         catch ( IOException e )
         {
             getLog().error( "IOException: " + e.getMessage() );
             getLog().debug( e );
-        }
-        finally
-        {
-            IOUtil.close( reader );
         }
 
         if ( invokerLogContent != null && invokerLogContent.contains( "Error occurred during initialization of VM" ) )
@@ -280,7 +262,7 @@ public class SiteInvoker
      * @return the invocation result
      * @throws MavenInvocationException if any
      */
-    private InvocationResult invoke( Invoker invoker, InvocationRequest request, File invokerLog, List goals,
+    private InvocationResult invoke( Invoker invoker, InvocationRequest request, File invokerLog, List<String> goals,
                                      Properties properties, String mavenOpts )
         throws MavenInvocationException
     {
