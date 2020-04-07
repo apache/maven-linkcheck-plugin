@@ -27,6 +27,7 @@ under the License.
     <artifactId>maven-plugins</artifactId>
     <version>34</version>
     <relativePath></relativePath>
+    <project.build.outputTimestamp>2020-04-12T08:04:00Z</project.build.outputTimestamp>
   </parent>
 
   <artifactId>maven-linkcheck-plugin</artifactId>
