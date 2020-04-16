@@ -34,7 +34,7 @@ under the License.
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven Linkcheck Plugin</name>
-  <description>This plugin allows you to generate a linkcheck report of your project's documentation.</description>
+  <description>This plugin generates a linkcheck report of your project's documentation.</description>
 
   <prerequisites>
     <maven>${mavenVersion}</maven>
@@ -62,11 +62,11 @@ under the License.
   </distributionManagement>
 
   <properties>
-    <doxiaVersion>1.4</doxiaVersion>
-    <doxia-sitetoolsVersion>1.4</doxia-sitetoolsVersion>
+    <doxiaVersion>1.9.1</doxiaVersion>
+    <doxia-sitetoolsVersion>1.9.2</doxia-sitetoolsVersion>
     <mavenVersion>2.2.1</mavenVersion>
     <javaVersion>7</javaVersion>
-    <project.build.outputTimestamp>2020-04-07T21:04:00Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2020-04-16T16:07:00Z</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
