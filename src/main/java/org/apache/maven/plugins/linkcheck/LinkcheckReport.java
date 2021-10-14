@@ -40,8 +40,6 @@ import org.codehaus.plexus.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -345,7 +343,7 @@ public class LinkcheckReport
             basedir = new File( linkcheckOutput.getParentFile(), "tmpsite" );
             basedir.mkdirs();
 
-            List documents = null;
+            List<File> documents = null;
             try
             {
                 documents = FileUtils.getFiles( basedir, "**/*.html", null );
@@ -357,7 +355,7 @@ public class LinkcheckReport
             }
 
             // if the site was not already generated, invoke it
-            if ( documents == null || ( documents != null && documents.size() == 0 ) )
+            if ( documents == null || documents.size() == 0 )
             {
                 getLog().info( "Invoking the maven-site-plugin to ensure that all files are generated..." );
 
@@ -432,13 +430,10 @@ public class LinkcheckReport
      */
     private String[] getExcludedPages()
     {
-        List pagesToExclude =
-            ( excludedPages != null ? new ArrayList( Arrays.asList( excludedPages ) ) : new ArrayList() );
-
-        // Exclude this report
-        pagesToExclude.add( getOutputName() + ".html" );
-
-        return (String[]) pagesToExclude.toArray( new String[pagesToExclude.size()] );
+        String[] pagesToExclude = new String[excludedPages.length + 1];
+        System.arraycopy( excludedPages, 0, pagesToExclude, 0, excludedPages.length );
+        pagesToExclude[excludedPages.length] = getOutputName() + ".html";
+        return pagesToExclude;
     }
 
     // ----------------------------------------------------------------------

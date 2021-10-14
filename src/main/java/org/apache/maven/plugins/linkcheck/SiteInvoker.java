@@ -71,11 +71,12 @@ public class SiteInvoker
     }
 
     /**
-     * Invoke Maven for the <code>site</code> phase for a temporary Maven project using
+     * <p>Invoke Maven for the <code>site</code> phase for a temporary Maven project using
      * <code>tmpReportingOutputDirectory</code> as <code>${project.reporting.outputDirectory}</code>. This is a
-     * workaround to be sure that all site files have been correctly generated. <br/>
+     * workaround to be sure that all site files have been correctly generated.
+     * </p>
      * <b>Note 1</b>: the Maven Home should be defined in the <code>maven.home</code> Java system property or defined in
-     * <code>M2_HOME</code> system env variables. <b>Note 2</be>: we can't use <code>siteOutputDirectory</code> param
+     * <code>M2_HOME</code> system env variables. <b>Note 2</b>: we can't use <code>siteOutputDirectory</code> param
      * from site plugin because some plugins <code>${project.reporting.outputDirectory}</code> in their conf.
      *
      * @param project the MavenProject to invoke the site on. Not null.
