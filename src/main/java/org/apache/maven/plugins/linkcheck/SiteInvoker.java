@@ -105,17 +105,7 @@ public class SiteInvoker
             FileUtils.createTempFile( "invoker-site-plugin", ".txt", new File( project.getBuild().getDirectory() ) );
 
         // clone project and set a new reporting output dir
-        MavenProject clone;
-        try
-        {
-            clone = (MavenProject) project.clone();
-        }
-        catch ( CloneNotSupportedException e )
-        {
-            IOException ioe = new IOException( "CloneNotSupportedException: " + e.getMessage() );
-            ioe.setStackTrace( e.getStackTrace() );
-            throw ioe;
-        }
+        MavenProject clone = project.clone();
 
         // MLINKCHECK-1
         if ( clone.getOriginalModel().getReporting() == null )

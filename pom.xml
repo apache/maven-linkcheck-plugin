@@ -25,7 +25,7 @@ under the License.
   <parent>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-plugins</artifactId>
-    <version>34</version>
+    <version>35-SNAPSHOT</version>
     <relativePath></relativePath>
   </parent>
 
@@ -62,10 +62,10 @@ under the License.
   </distributionManagement>
 
   <properties>
-    <doxiaVersion>1.9.1</doxiaVersion>
-    <doxia-sitetoolsVersion>1.9.2</doxia-sitetoolsVersion>
-    <mavenVersion>2.2.1</mavenVersion>
-    <javaVersion>7</javaVersion>
+    <doxiaVersion>2.0.0-M2-SNAPSHOT</doxiaVersion>
+    <doxiaSitetoolsVersion>2.0.0-M1-SNAPSHOT</doxiaSitetoolsVersion>
+    <mavenVersion>4.0.0-alpha-1-SNAPSHOT</mavenVersion>
+    <javaVersion>8</javaVersion>
     <project.build.outputTimestamp>2020-04-16T16:07:00Z</project.build.outputTimestamp>
   </properties>
 
@@ -88,7 +88,7 @@ under the License.
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
-      <artifactId>maven-project</artifactId>
+      <artifactId>maven-compat</artifactId>
       <version>${mavenVersion}</version>
     </dependency>
     <dependency>
@@ -104,7 +104,7 @@ under the License.
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
       <artifactId>maven-reporting-api</artifactId>
-      <version>${mavenVersion}</version>
+      <version>3.1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
@@ -114,7 +114,7 @@ under the License.
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-invoker</artifactId>
-      <version>3.0.0</version>
+      <version>3.2.0-SNAPSHOT</version>
     </dependency>
 
     <!-- doxia -->
@@ -128,7 +128,7 @@ under the License.
     <dependency>
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-site-renderer</artifactId>
-      <version>${doxia-sitetoolsVersion}</version>
+      <version>${doxiaSitetoolsVersion}</version>
       <exclusions>
         <exclusion>
           <groupId>org.codehaus.plexus</groupId>
@@ -174,6 +174,16 @@ under the License.
       <version>3.1.0</version>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.maven.shared</groupId>
+        <artifactId>maven-shared-utils</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <profiles>
     <profile>
