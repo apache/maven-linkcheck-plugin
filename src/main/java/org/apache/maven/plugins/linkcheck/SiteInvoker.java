@@ -106,16 +106,16 @@ public class SiteInvoker
 
         // clone project and set a new reporting output dir
         MavenProject clone;
-        try
-        {
+//        try
+//        {
             clone = (MavenProject) project.clone();
-        }
-        catch ( CloneNotSupportedException e )
-        {
-            IOException ioe = new IOException( "CloneNotSupportedException: " + e.getMessage() );
-            ioe.setStackTrace( e.getStackTrace() );
-            throw ioe;
-        }
+//        }
+//        catch ( CloneNotSupportedException e )
+//        {
+//            IOException ioe = new IOException( "CloneNotSupportedException: " + e.getMessage() );
+//            ioe.setStackTrace( e.getStackTrace() );
+//            throw ioe;
+//        }
 
         // MLINKCHECK-1
         if ( clone.getOriginalModel().getReporting() == null )
