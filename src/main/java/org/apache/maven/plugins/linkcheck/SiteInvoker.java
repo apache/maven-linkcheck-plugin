@@ -50,7 +50,6 @@ import org.apache.maven.shared.invoker.PrintStreamHandler;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.ReaderFactory;
-import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.WriterFactory;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 
@@ -87,7 +86,7 @@ public class SiteInvoker
         throws IOException
     {
         String mavenHome = getMavenHome();
-        if ( StringUtils.isEmpty( mavenHome ) )
+        if ( mavenHome == null || mavenHome.isEmpty() )
         {
             // CHECKSTYLE_OFF: LineLength
             getLog().error( "Could NOT invoke Maven because no Maven Home is defined. "

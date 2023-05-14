@@ -241,7 +241,7 @@ public class LinkcheckReportGenerator
         sink.rawText( i18n.getString( "linkcheck-report", locale, "report.linkcheck.summary.table.httpMethod" ) );
         sink.tableCell_();
         sink.tableCell();
-        if ( StringUtils.isEmpty( httpMethod ) )
+        if ( httpMethod == null || httpMethod.isEmpty() )
         {
             sink.text( i18n.getString( "linkcheck-report", locale, "report.linkcheck.summary.table.none" ) );
         }
