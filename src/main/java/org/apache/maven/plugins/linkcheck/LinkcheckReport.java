@@ -400,7 +400,7 @@ public class LinkcheckReport
         linkCheck.setExcludedPages( getExcludedPages() );
         linkCheck.setExcludedHttpStatusErrors( asIntArray( excludedHttpStatusErrors ) );
         linkCheck.setExcludedHttpStatusWarnings( asIntArray( excludedHttpStatusWarnings ) );
-        linkCheck.setEncoding( ( (encoding != null && !encoding.isEmpty()) ? encoding : ReaderFactory.UTF_8 ) );
+        linkCheck.setEncoding( ( ( encoding != null && !encoding.isEmpty() ) ? encoding : ReaderFactory.UTF_8 ) );
 
         HttpBean bean = new HttpBean();
         bean.setMethod( httpMethod );
