@@ -47,8 +47,8 @@ under the License.
     <tag>HEAD</tag>
   </scm>
   <issueManagement>
-    <system>jira</system>
-    <url>https://issues.apache.org/jira/browse/MLINKCHECK</url>
+    <system>GitHub Issues</system>
+    <url>https://github.com/apache/maven-linkcheck-plugin/issues</url>
   </issueManagement>
   <ciManagement>
     <system>Jenkins</system>
